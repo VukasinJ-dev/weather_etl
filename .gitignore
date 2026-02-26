@@ -1,0 +1,13 @@
+# Ignore output CSV files
+data/*_extended.csv
+data/*_stats.csv
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+
+# Ignore logs
+*.log
+
+# OS generated files
+.DS_Store
