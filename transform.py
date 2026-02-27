@@ -51,6 +51,7 @@ def get_missing_data(latitude, longitude):
         
         if 'error' in data:
             logging.warning(data['reason'])
+            return None
         
         else:
             current = data.get('current_weather', {})
@@ -66,19 +67,19 @@ def get_missing_data(latitude, longitude):
         }
     except requests.exceptions.ConnectionError:
         logging.error(f"Connection error")
-        return {}
+        return None
     
     except requests.exceptions.Timeout:
         logging.error(f"Timeout error")
-        return {}
+        return None
     
     except requests.exceptions.RequestException as e:
         logging.error(f"Request error: {e}")
-        return {}
+        return None
     
     except Exception as e:
         logging.error(f"Unexpected error: {e}")
-        return {}
+        return None
 
 def add_missing_columns(data):
     """Adds temperature, windspeed, and weather description columns to the DataFrame."""
@@ -90,6 +91,10 @@ def add_missing_columns(data):
         logging.info(f'Collecting data for {row.Index + 1}. row')
         missing_data = get_missing_data(row.latitude, row.longitude)
         
+        if missing_data is None:
+            logging.warning(f"No data for row {row.Index} ({row.latitude}, {row.longitude}), skipping.")
+            continue
+    
         if missing_data['temperature']:
             data.at[row.Index, 'temperature'] = missing_data['temperature']
         if missing_data['windspeed']:

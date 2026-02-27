@@ -11,8 +11,8 @@ Podaci o gradovima (sa koordinatama) se uzimaju iz CSV fajla, proširuju trenutn
 - `transform.py` – funkcije za obogaćivanje podataka, mapiranje weather code-a i generisanje statistika  
 - `load.py` – funkcije za snimanje obrađenih CSV fajlova  
 - `main.py` – pokreće ceo ETL pipeline  
-- `data/` – sadrži ulazni CSV (`gradovi.csv`) i izlazne fajlove (`gradovi_produzeno.csv`, `gradovi_stats.csv`)  
-
+- `data/` – sadrži ulazni CSV (`cities.csv`) i izlazne fajlove (`cities_exrendedcsv`, `cities_stats.csv`)  
+- `tests/` – sadrži testove za ključne funkcije projekta (`map_weather_code` i `generate_statistics`), koji se pokreću preko `pytest`
 ---
 
 ## Funkcionalnosti
@@ -43,4 +43,8 @@ pip install -r requirements.txt
 3.Pokreni program:
 ```bash
 python main.py
+```
+4.Testovi:
+```bash
+pytest -v
 ```
